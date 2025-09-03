@@ -1,0 +1,10 @@
+cat
+dog
+car
+tree
+house
+bicycle
+sun
+flower
+fish
+bird
