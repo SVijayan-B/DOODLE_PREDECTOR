@@ -6,43 +6,65 @@ import random
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(f"[INFO] Sarcasm model using device: {device}")
 
-# Load DialoGPT (small to fit in 6GB VRAM)
+# Load DialoGPT-small
 sarcasm_tokenizer = AutoTokenizer.from_pretrained("microsoft/DialoGPT-small")
 sarcasm_model = AutoModelForCausalLM.from_pretrained("microsoft/DialoGPT-small").to(device)
 
-def generate_contextual_sarcasm(label: str, is_correct: bool, max_length=60) -> str:
+# Roast booster pools
+PRAISE_COMPARISON = [
+    "Even doctors scribbling prescriptions don’t achieve this level of art.",
+    "This could hang in a hospital waiting room, and patients would think it’s modern art.",
+    "Engineers everywhere just gave up their AutoCAD licenses after seeing this.",
+    "Honestly, better than half the ‘Picassos’ I’ve seen in school notebooks.",
+    "Bro, this is so good even MS Paint would retire gracefully."
+]
+
+SELF_ROASTS = [
+    "I called that a '{label}'? Wow, even my neurons want to resign.",
+    "That’s about as accurate as a JEE aspirant’s social life — non-existent.",
+    "Bro I just embarrassed myself harder than a doctor who misread an ECG.",
+    "I swear, a potato with WiFi could predict better than me.",
+    "Imagine training on billions of images and still failing this bad — that’s me."
+]
+
+def generate_contextual_sarcasm(label: str, is_correct: bool, max_length=100) -> str:
     """
-    Generate sarcasm in two modes:
-    - If prediction is correct -> sarcastic roast + fake praise
-    - If prediction is wrong -> AI self-roast
+    If correct → sarcastic praise + comparative roast
+    If wrong → brutal AI self-roast
     """
 
     if is_correct:
-        prompt = (
-            f"Roast the user sarcastically but also ironically praise them for correctly drawing a '{label}'. "
-            f"Keep it short, funny, and like roasting a JEE aspirant."
+        base_prompt = (
+            f"The user correctly drew a '{label}'. Generate 2-3 sentences: start by praising them, "
+            f"then sarcastically compare them to doctors, engineers, or terrible artists, "
+            f"to make the praise funny."
         )
     else:
-        prompt = (
-            f"Roast yourself sarcastically because you wrongly predicted a doodle as '{label}'. "
-            f"Be self-deprecating and funny like a failed JEE aspirant."
+        base_prompt = (
+            f"I wrongly predicted the doodle as '{label}'. Roast me brutally in 2-3 sentences, "
+            f"be self-deprecating, exaggerate my stupidity, and make the user laugh at my failure."
         )
 
-    inputs = sarcasm_tokenizer.encode(prompt + sarcasm_tokenizer.eos_token, return_tensors="pt").to(device)
+    # Encode & generate
+    inputs = sarcasm_tokenizer.encode(base_prompt + sarcasm_tokenizer.eos_token, return_tensors="pt").to(device)
 
     outputs = sarcasm_model.generate(
         inputs,
         max_length=max_length,
         pad_token_id=sarcasm_tokenizer.eos_token_id,
         do_sample=True,
-        top_k=50,
+        top_k=40,
         top_p=0.9,
-        temperature=0.8
+        temperature=1.1,
+        num_return_sequences=1
     )
 
-    reply = sarcasm_tokenizer.decode(outputs[:, inputs.shape[-1]:][0], skip_special_tokens=True)
+    reply = sarcasm_tokenizer.decode(outputs[0][inputs.shape[-1]:], skip_special_tokens=True).strip()
 
-    # In case model rambles, trim extra sentences
-    reply = reply.split(".")[0] + "."
+    # Add extra spice from boosters
+    if is_correct and random.random() < 0.7:
+        reply += " " + random.choice(PRAISE_COMPARISON)
+    elif not is_correct and random.random() < 0.7:
+        reply = reply.replace("{label}", label) + " " + random.choice(SELF_ROASTS).format(label=label)
 
-    return reply.strip()
+    return reply
