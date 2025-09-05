@@ -24,27 +24,72 @@ export default function CanvasBoard({ onSave }) {
       <ReactSketchCanvas
         ref={canvasRef}
         style={{ border: "2px dashed black", borderRadius: "12px" }}
-        width="500px"
-        height="500px"
+        width="600px"
+        height="600px"
         strokeWidth={4}
         strokeColor="black"
         backgroundColor="white"
       />
 
-      <div className="flex gap-4 mt-4">
+      <div style={{
+        display: "flex", 
+        gap: "15px", 
+        marginTop: "30px ",
+        justifyContent: "center"
+        }}>
         <button
-          onClick={handleSave}
-          className="px-4 py-2 bg-green-500 text-white rounded-lg shadow"
-        >
-          Submit
-        </button>
-        <button
-          onClick={handleClear}
-          className="px-4 py-2 bg-red-500 text-white rounded-lg shadow"
-        >
-          Clear
-        </button>
-      </div>
+            onClick={handleSave}
+            style={{
+                fontFamily: "'Comic Neue', cursive",
+                background: "#4ade80",
+                border: "3px solid #000",
+                padding: "10px 20px",
+                fontSize: "1rem",
+                fontWeight: "bold",
+                cursor: "pointer",
+                borderRadius: "12px",
+                boxShadow: "3px 3px 0px #000",
+                color: "#000",
+                transition: "all 0.1s ease-in-out"
+        }}
+        onMouseEnter={(e) => {
+            e.target.style.transform = "scale(1.05) rotate(-1deg)";
+            e.target.style.background = "#22c55e";
+        }}
+        onMouseLeave={(e) => {
+            e.target.style.transform = "scale(1)";
+            e.target.style.background = "#4ade80";
+        }}
+    >
+        🎯 Submit
+    </button>
+    <button
+        onClick={handleClear}
+        style={{
+        fontFamily: "'Comic Neue', cursive",
+        background: "#f87171",
+        border: "3px solid #000",
+        padding: "10px 20px",
+        fontSize: "1rem",
+        fontWeight: "bold",
+        cursor: "pointer",
+        borderRadius: "12px",
+        boxShadow: "3px 3px 0px #000",
+        color: "#000",
+        transition: "all 0.1s ease-in-out"
+        }}
+        onMouseEnter={(e) => {
+            e.target.style.transform = "scale(1.05) rotate(-1deg)";
+            e.target.style.background = "#ef4444";
+        }}
+        onMouseLeave={(e) => {
+            e.target.style.transform = "scale(1)";
+            e.target.style.background = "#f87171";
+        }}
+    >
+        🗑️ Clear
+    </button>
     </div>
-  );
+</div>
+);
 }
