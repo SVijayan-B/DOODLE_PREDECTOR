@@ -45,13 +45,13 @@ export default function App() {
     maxHeight: "100vh",
     textAlign: "center",
     padding: "10px",
-    background: "repeating-linear-gradient(45deg, #fefefe, #fefefe 20px, #fdf5f5 20px, #fdf5f5 40px)",
+    background: "linear-gradient(to right, #005249, #0D98BA)",
     overflow: "hidden"
   };
 
   const containerStyles = {
     maxWidth: "900px",
-    maxHeight: "95vh",
+    maxHeight: "100vh",
     margin: "auto",
     background: "#fff",
     border: "4px dashed #222",
@@ -65,14 +65,15 @@ export default function App() {
   const titleStyles = {
     fontSize: "2.2rem",
     color: "#222",
-    textShadow: "2px 2px #ffeb3b, -2px -2px #ff80ab",
+    textShadow: "2px 2px #0D98BA, -2px -2px #0D98BA",
     marginBottom: "5px",
     fontWeight: "700",
     fontFamily: "'Comic Neue', cursive"
   };
 
   const taglineStyles = {
-    fontSize: "1.1rem",
+    fontSize: "1.5rem",
+    fontWeight: "1000",
     marginBottom: "15px",
     color: "#666",
     fontStyle: "italic",
@@ -82,11 +83,11 @@ export default function App() {
   const canvasWrapperStyles = {
     display: "flex",
     justifyContent: "center",
-    margin: "15px 0",
-    padding: "50px 1px",
+    margin: "30px 20px",
+    padding: "80px 20px",
     border: "6px solid #000",
     borderRadius: "20px",
-    background: "#fff",
+    background: "linear-gradient(to bottom, #0083a4ff, #0D98BA ",
     boxShadow: "5px 5px 0px #000"
   };
 
@@ -208,8 +209,8 @@ export default function App() {
       
       <div style={appStyles}>
         <div style={containerStyles}>
-          <h1 style={titleStyles}>🎨 IOTA DOODLE ROASTER 🤖</h1>
-          <p style={taglineStyles}>Let's see your drawing skills!</p>
+          <h1 style={titleStyles}>🎨 DOODLE ROASTER 🤖</h1>
+          <p style={taglineStyles}>-powered by IOTA</p>
 
           {/* Canvas Section */}
           <div style={canvasWrapperStyles}>
