@@ -1,8 +1,7 @@
-from fastapi import FastAPI, File, UploadFile, Form
+from fastapi import FastAPI, Form
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi import Body
-import shutil, os, traceback
-
+from pydantic import BaseModel
+import os, traceback, base64
 from predictor import predict_doodle_zero_shot
 from sarcasm import generate_contextual_sarcasm
 
@@ -20,14 +19,20 @@ app.add_middleware(
 UPLOAD_FOLDER = "uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-# --- Prediction Endpoint ---
+# --- Prediction Endpoint (handles base64 canvas image) ---
 @app.post("/predict")
-async def predict(file: UploadFile = File(...)):
+async def predict(image_base64: str = Form(...)):
     try:
-        file_path = os.path.join(UPLOAD_FOLDER, file.filename)
-        with open(file_path, "wb") as buffer:
-            shutil.copyfileobj(file.file, buffer)
+        # Decode base64 string (remove header "data:image/png;base64,...")
+        header, encoded = image_base64.split(",", 1)
+        image_data = base64.b64decode(encoded)
 
+        # Save decoded PNG
+        file_path = os.path.join(UPLOAD_FOLDER, "doodle.png")
+        with open(file_path, "wb") as f:
+            f.write(image_data)
+
+        # Run prediction
         label, confidence = predict_doodle_zero_shot(file_path)
 
         return {
@@ -39,17 +44,15 @@ async def predict(file: UploadFile = File(...)):
         return {"error": str(e)}
 
 # --- Sarcasm Endpoint ---
-from fastapi import Body
+class SarcasmRequest(BaseModel):
+    label: str
+    is_correct: bool
 
 @app.post("/sarcasm")
-async def sarcasm(payload: dict = Body(...)):
+async def sarcasm(request: SarcasmRequest):
     try:
-        label = payload.get("label")
-        is_correct = payload.get("is_correct", False)
-        is_correct_bool = str(is_correct).lower() in ["true", "1", "yes"]
-
-        comic_sentence = generate_contextual_sarcasm(label, is_correct_bool)
-        return {"comic": comic_sentence}
+        comic_sentence = generate_contextual_sarcasm(request.label, request.is_correct)
+        return {"comic": comic_sentence}   # ✅ always return under "comic"
     except Exception as e:
         traceback.print_exc()
         return {"error": str(e)}

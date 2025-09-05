@@ -1,215 +1,107 @@
 import React, { useState } from "react";
-import CanvasBoard from "./components/CanvasBoard";
-import PredictionResult from "./components/PredictionResult";
 import axios from "axios";
+import CanvasBoard from "./components/CanvasBoard";
 
 export default function App() {
-  const [result, setResult] = useState(null);
+  const [prediction, setPrediction] = useState(null);
+  const [confidence, setConfidence] = useState(null);
   const [sarcasm, setSarcasm] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [showButtons, setShowButtons] = useState(false);
 
-  const handlePredict = async (formData) => {
-    setSarcasm("");
-    setError("");
-    setLoading(true);
+  const handleSave = async (dataUrl) => {
+    const formData = new FormData();
+    formData.append("image_base64", dataUrl);
 
     try {
-      const res = await axios.post("http://127.0.0.1:8000/predict", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-      setResult(res.data);
+      const res = await axios.post("http://localhost:8000/predict", formData);
+      setPrediction(res.data.prediction);
+      setConfidence(res.data.confidence);
+      setShowButtons(true);
+      setSarcasm("");
     } catch (err) {
-      console.error("Prediction error:", err);
-      setError("⚠️ Oops! Couldn’t get a prediction. Try again.");
-    } finally {
-      setLoading(false);
+      console.error(err);
     }
   };
 
-  const handleFeedback = async (isCorrect) => {
+  const handleSarcasm = async (isCorrect) => {
     try {
-      const res = await axios.post("http://127.0.0.1:8000/sarcasm", {
-        label: result.prediction,
+      const res = await axios.post("http://localhost:8000/sarcasm", {
+        label: prediction,
         is_correct: isCorrect,
       });
-      setSarcasm(res.data.sarcasm);
+      setSarcasm(res.data.comic);
     } catch (err) {
-      console.error("Sarcasm error:", err);
-      setSarcasm("⚠️ Could not fetch sarcasm.");
+      console.error(err);
     }
   };
 
   return (
-    <div className="app-container">
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap');
-        
-        * {
-          box-sizing: border-box;
-        }
-        
-        .app-container {
-          font-family: 'Comic Neue', cursive, system-ui, Avenir, Helvetica, Arial, sans-serif;
-          line-height: 1.5;
-          font-weight: 400;
-          color: #333;
-          text-rendering: optimizeLegibility;
-          -webkit-font-smoothing: antialiased;
-          -moz-osx-font-smoothing: grayscale;
-          margin: 0;
-          min-width: 320px;
-          min-height: 100vh;
-          text-align: center;
-          background: repeating-linear-gradient(
-            45deg,
-            #fefefe,
-            #fefefe 20px,
-            #fdf5f5 20px,
-            #fdf5f5 40px
-          );
-          padding: 20px;
-        }
+    <div
+      className="min-h-screen flex flex-col items-center p-6"
+      style={{
+        backgroundImage:
+          "url('https://www.transparenttextures.com/patterns/doodles.png')",
+        backgroundRepeat: "repeat",
+        backgroundSize: "300px",
+        fontFamily: "'Comic Neue', cursive",
+      }}
+    >
+      {/* Header */}
+      <h1 className="text-7xl font-extrabold text-pink-500 mb-6 drop-shadow-[6px_6px_0px_black] tracking-widest text-center">
+        🎨 Doodle AI 🤪
+      </h1>
 
-        /* 🎨 Doodle Theme */
-        .container {
-          max-width: 720px;
-          margin: auto;
-          background: #fff;
-          border: 5px dashed #222;
-          border-radius: 25px;
-          padding: 25px;
-          box-shadow: 10px 10px 0px #000;
-          position: relative;
-        }
-
-        h1 {
-          font-size: 2.8rem;
-          color: #222;
-          text-shadow: 2px 2px #ffeb3b, -2px -2px #ff80ab;
-          margin-bottom: 10px;
-        }
-
-        .tagline {
-          font-size: 1.3rem;
-          margin-bottom: 20px;
-          color: #666;
-          font-style: italic;
-        }
-
-        .canvas-wrapper {
-          display: flex;
-          justify-content: center;
-          margin: 20px 0;
-        }
-
-        canvas {
-          border: 8px solid #000;
-          border-radius: 15px;
-          background: #fff;
-          box-shadow: 6px 6px 0px #000;
-          cursor: crosshair;
-        }
-
-        /* Controls */
-        .controls {
-          margin-top: 15px;
-        }
-
-        button {
-          font-family: 'Comic Neue', cursive;
-          background: #ffeb3b;
-          border: 3px solid #000;
-          padding: 10px 22px;
-          margin: 6px;
-          font-size: 1rem;
-          cursor: pointer;
-          border-radius: 14px;
-          transition: transform 0.1s ease-in-out, background 0.2s;
-          box-shadow: 4px 4px 0px #000;
-        }
-        button:hover {
-          transform: scale(1.08) rotate(-2deg);
-          background: #ffd54f;
-        }
-
-        hr {
-          margin: 35px 0;
-          border: none;
-          border-top: 4px dashed #000;
-        }
-
-        .result-box {
-          margin-top: 20px;
-          background: #fff;
-          padding: 15px;
-          border: 3px solid #000;
-          border-radius: 15px;
-          min-height: 50px;
-          box-shadow: 5px 5px 0px #000;
-          font-size: 1.2rem;
-          white-space: pre-line;
-        }
-
-        /* ✨ Fun Sarcasm Box */
-        .sarcasm-box {
-          margin-top: 20px;
-          padding: 18px;
-          border: 4px dotted #e91e63;
-          border-radius: 20px;
-          background: #fff0f6;
-          box-shadow: 5px 5px 0px #000;
-          font-size: 1.3rem;
-          font-weight: bold;
-          color: #d81b60;
-          animation: wiggle 0.8s ease-in-out infinite alternate;
-        }
-
-        @keyframes wiggle {
-          from {
-            transform: rotate(-1deg);
-          }
-          to {
-            transform: rotate(1deg);
-          }
-        }
-
-        .read-the-docs {
-          color: #888;
-          margin-top: 15px;
-          font-size: 0.95rem;
-          font-style: italic;
-        }
-      `}</style>
-
-      <div className="container">
-        <h1>🎨 Doodle Predictor + Sarcasm 🤖</h1>
-        <p className="tagline">Draw something and let the AI guess!</p>
-
-        <div className="canvas-wrapper">
-          <CanvasBoard onSubmit={handlePredict} />
-        </div>
-
-        {loading && <p>⏳ Thinking...</p>}
-        {error && <p className="result-box">{error}</p>}
-
-        <PredictionResult
-          result={result}
-          onFeedback={handleFeedback}
-          sarcasm={sarcasm}
-        />
-
-        {sarcasm && (
-          <div className="sarcasm-box">
-            🤖💬 <span>{sarcasm}</span>
-          </div>
-        )}
-
-        <hr />
-        <p className="read-the-docs">
-          ✨ Powered by AI — draw freely and test its sense of humor!
-        </p>
+      {/* Canvas Section */}
+      <div className="p-4 border-8 border-black rounded-3xl bg-white shadow-[10px_10px_0px_black] comic-frame">
+        <CanvasBoard onSave={handleSave} />
       </div>
+
+      {/* Prediction */}
+      {prediction && (
+        <div className="mt-6 text-4xl font-extrabold text-blue-600 text-center drop-shadow-[5px_5px_0px_black]">
+          <p>
+            Looks like a{" "}
+            <span className="text-yellow-400 underline">{prediction}</span> 🎉
+            <br />
+            <span className="text-lg text-black">
+              (Confidence: {confidence}%)
+            </span>
+          </p>
+        </div>
+      )}
+
+      {/* Yes/No Buttons */}
+      {showButtons && (
+        <div className="flex gap-10 mt-8">
+          <button
+            onClick={() => handleSarcasm(true)}
+            className="px-10 py-5 bg-green-400 hover:bg-green-500 text-black font-extrabold text-2xl rounded-full border-4 border-black shadow-[7px_7px_0px_black] transition-transform hover:scale-110 comic-btn"
+          >
+            ✅ YES!
+          </button>
+          <button
+            onClick={() => handleSarcasm(false)}
+            className="px-10 py-5 bg-red-400 hover:bg-red-500 text-black font-extrabold text-2xl rounded-full border-4 border-black shadow-[7px_7px_0px_black] transition-transform hover:scale-110 comic-btn"
+          >
+            ❌ NOPE!
+          </button>
+        </div>
+      )}
+
+      {/* Sarcasm Bubble */}
+      {sarcasm && (
+        <div className="relative mt-12 max-w-3xl bg-yellow-300 border-8 border-black rounded-3xl p-8 shadow-[8px_8px_0px_black] text-3xl leading-relaxed comic-bubble">
+          <p className="text-black font-bold">🤖 {sarcasm}</p>
+          {/* Bubble tail */}
+          <div className="absolute -bottom-7 left-20 w-0 h-0 border-t-[50px] border-t-yellow-300 border-x-[35px] border-x-transparent"></div>
+          <div className="absolute -bottom-9 left-20 w-0 h-0 border-t-[54px] border-t-black border-x-[39px] border-x-transparent"></div>
+        </div>
+      )}
+
+      {/* Footer */}
+      <p className="mt-12 text-xl text-purple-700 font-extrabold drop-shadow-[3px_3px_0px_white]">
+        ✍️ Draw. 🎭 Laugh. 🎉 Repeat!
+      </p>
     </div>
   );
 }

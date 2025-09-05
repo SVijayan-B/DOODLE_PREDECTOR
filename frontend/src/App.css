@@ -1,42 +1,33 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+.feedback-card {
+  margin-top: 20px;
+  background-color: #e0ffff;
+  border-radius: 20px;
+  padding: 20px;
+  display: inline-block;
+  max-width: 500px;
+  box-shadow: 3px 3px 10px rgba(0,0,0,0.2);
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.feedback-card button {
+  margin: 10px;
+  padding: 10px 20px;
+  border-radius: 15px;
+  border: none;
+  background-color: #90ee90;
+  cursor: pointer;
+  font-weight: bold;
+  font-family: 'Comic Sans MS';
+  transition: 0.3s;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.feedback-card button:hover {
+  background-color: #32cd32;
 }
 
-.card {
-  padding: 2em;
+.feedback-card button:last-child {
+  background-color: #ff7f7f;
 }
 
-.read-the-docs {
-  color: #888;
+.feedback-card button:last-child:hover {
+  background-color: #ff4040;
 }
