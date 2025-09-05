@@ -1,67 +1,68 @@
-/* Comic font */
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
 body {
-  font-family: 'Comic Neue', cursive;
-  background-color: #fefefe;
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
 }
 
-/* Comic speech bubble */
-.comic-bubble {
-  position: relative;
-  border: 6px solid #000;
-  border-radius: 20px;
-  background: #ffeb3b;
-  padding: 20px;
-  font-size: 1.4rem;
-  font-weight: bold;
-  color: #000;
-  box-shadow: 6px 6px 0px #000;
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
 }
 
-.comic-bubble::after {
-  content: "";
-  position: absolute;
-  bottom: -35px;
-  left: 40px;
-  width: 0;
-  height: 0;
-  border-top: 35px solid #ffeb3b;
-  border-left: 30px solid transparent;
-  border-right: 30px solid transparent;
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
 }
 
-.comic-bubble::before {
-  content: "";
-  position: absolute;
-  bottom: -40px;
-  left: 38px;
-  width: 0;
-  height: 0;
-  border-top: 40px solid #000;
-  border-left: 34px solid transparent;
-  border-right: 34px solid transparent;
-}
-
-/* Comic buttons */
-.comic-btn {
-  font-family: 'Comic Neue', cursive;
-  font-weight: 700;
-  border: 4px solid black;
-  border-radius: 9999px;
-  padding: 12px 30px;
-  font-size: 1.2rem;
-  box-shadow: 6px 6px 0px black;
-  transition: transform 0.2s ease;
-}
-
-.comic-btn:hover {
-  transform: scale(1.1);
-}
-
-/* Comic frame for canvas */
-.comic-frame {
-  border: 8px solid black;
-  border-radius: 25px;
-  background: white;
-  box-shadow: 8px 8px 0px black;
-  padding: 12px;
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
 }
