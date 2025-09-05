@@ -12,19 +12,21 @@ sarcasm_model = AutoModelForCausalLM.from_pretrained("microsoft/DialoGPT-small")
 
 # Roast booster pools
 PRAISE_COMPARISON = [
-    "Even doctors scribbling prescriptions don’t achieve this level of art. 🩺✍️",
-    "This could hang in a hospital waiting room, and patients would think it’s modern art. 🖼️",
-    "Engineers everywhere just gave up their AutoCAD licenses after seeing this. 🏗️",
+    "Even IIITS goats scribbling promts for C LAB don’t achieve this level of art. 🩺✍️",
+    "Bro, you got a new talent to impress a .....",
+    "THIS doodle is so goated that , it overcross my Resume 🏗️",
     "Honestly, better than half the ‘Picassos’ I’ve seen in school notebooks. 🎨",
-    "Bro, this is so good even MS Paint would retire gracefully. 🖌️"
+    "Bro , your doodle’s so good, it’s brighter than guys craving for .....",
+    "BROOO... your not the person to study JEE MAINS, you should be teaching it. 📚",
+    "Bro, this is so good even DLD LAB report would retire gracefully. 🖌️"
 ]
 
 SELF_ROASTS = [
-    "I called that a '{label}'? Wow, even my neurons want to resign. 🤖💀",
-    "That’s about as accurate as a JEE aspirant’s social life — non-existent. 📉",
-    "Bro I just embarrassed myself harder than a doctor who misread an ECG. 💔",
-    "I swear, a potato with WiFi could predict better than me. 🥔📡",
-    "Imagine training on billions of images and still failing this bad — that’s me. 🔥"
+    "I called that a '{label}'? Wow, even my neurons want to resign bro. 🤖💀",
+    "That’s about as accurate as IIITS students begging attendance from teachers — non-existent. 📉",
+    "Bro I just embarrassed myself harder than you guys preparing EssentialEnglish course . 💔",
+    "I swear, a even DLD circuts could predict better than me. 🥔📡",
+    "Imagine training on billions of images and still failing this bad — that’s me . 🔥"
 ]
 
 def generate_contextual_sarcasm(label: str, is_correct: bool, max_length=100) -> str:
