@@ -1,5 +1,6 @@
 from fastapi import FastAPI, File, UploadFile, Form
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi import Body
 import shutil, os, traceback
 
 from predictor import predict_doodle_zero_shot
@@ -38,10 +39,16 @@ async def predict(file: UploadFile = File(...)):
         return {"error": str(e)}
 
 # --- Sarcasm Endpoint ---
+from fastapi import Body
+
 @app.post("/sarcasm")
-async def sarcasm(label: str = Form(...), is_correct: bool = Form(...)):
+async def sarcasm(payload: dict = Body(...)):
     try:
-        comic_sentence = generate_contextual_sarcasm(label, is_correct)
+        label = payload.get("label")
+        is_correct = payload.get("is_correct", False)
+        is_correct_bool = str(is_correct).lower() in ["true", "1", "yes"]
+
+        comic_sentence = generate_contextual_sarcasm(label, is_correct_bool)
         return {"comic": comic_sentence}
     except Exception as e:
         traceback.print_exc()
