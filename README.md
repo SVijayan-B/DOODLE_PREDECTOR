@@ -61,3 +61,6 @@ cd frontend
 npm install
 npm run dev
 ```
+
+
+ - Now You Can Enjoy the Doodle Ai
