@@ -1,64 +1,63 @@
-# DOODLE_PREDECTOR
-# 🎨 Doodle AI 🤖✨
+# 🎨 DOODLE_PREDECTOR 🤖✨
 
 Welcome to **Doodle AI**, a fun AI-powered doodle recognition app with a twist of **sarcasm and humor**!  
-This project was built as part of the **IOTA Club (AI/ML Club)** to explore how AI can be both **creative and entertaining**.
+This project was built as part of the **IOTA Club (AI/ML Club)** to show how AI can be **creative, entertaining, and a little bit savage**.  
 
 ---
 
 ## 🚀 Features
-- 🖌️ **Draw Anything** – Use the canvas to doodle your imagination.  
-- 🔮 **AI Prediction** – The AI tries to guess what you drew.  
+- 🖌️ **Draw Anything** – Unleash your creativity on the doodle canvas.  
+- 🔮 **AI Prediction** – The AI tries to guess what you drew (with confidence %).  
 - 😂 **Sarcastic Feedback** –  
-  - If the AI is **correct**, it praises you but with a sarcastic twist.  
-  - If the AI is **wrong**, it **roasts itself** brutally to make you laugh.  
-- 🎭 **Comic-Themed UI** – A playful interface with doodly, kid-styled comic vibes.  
+  - If the AI is **correct**, it praises you with hilarious sarcasm.  
+  - If the AI is **wrong**, it **roasts itself** harder than you can imagine.  
+- 🎭 **Comic-Themed UI** – Bright, fun, kid-styled doodle vibes with comic fonts & colors.  
 
 ---
 
-## 🖼️ Demo Flow
-1. Draw on the **canvas**.  
-2. Click **Submit**.  
-3. AI predicts your doodle and shows confidence.  
-4. Choose **Yes/No** if the prediction is right.  
-5. Get **funny sarcastic feedback** from the AI.  
+## 🖼️ How It Works
+1. Draw your doodle on the **canvas**.  
+2. Hit the **Submit** button.  
+3. AI will guess your doodle + show confidence score.  
+4. Select **Yes** or **No** depending on whether it got it right.  
+5. Enjoy the **sarcastic roast or praise** generated instantly.  
 
 ---
 
 ## 🛠️ Tech Stack
-### Frontend
-- ⚛️ React + Vite  
-- 🎨 TailwindCSS + custom comic-styled CSS  
-- 🖌️ React Sketch Canvas for doodling  
+### 🎨 Frontend
+- React + Vite  
+- TailwindCSS + Custom Comic CSS  
+- React Sketch Canvas  
 
-### Backend
-- ⚡ FastAPI  
-- 🤖 Hugging Face Transformers (DialoGPT for sarcasm generation)  
-- 🖼️ PIL (for image handling)  
+### ⚡ Backend
+- FastAPI  
+- Hugging Face Transformers (DialoGPT for sarcasm generation)  
+- Pillow (PIL) for image handling  
 
 ---
 
-## TO Install 
- - clone the repo
-**clone**
-    git clone https://github.com/SVijayan-B/DOODLE_PREDECTOR.git
-    cd DOODLE_PREDECTOR
+## 📦 Installation & Setup
 
-**Virtual Environment**
+### 1️⃣ Clone the Repo
+```bash
+git clone https://github.com/SVijayan-B/DOODLE_PREDECTOR.git
+cd DOODLE_PREDECTOR
+```
+### 2 Setup backend
+```
+cd backend
+python -m venv venv
+venv\Scripts\activate   # (Windows)
+# source venv/bin/activate  # (Linux/Mac)
 
-    cd Backend
-    python -m venv venv
-    venv\Scripts\activate
-    pip install -r requirements.txt
+pip install -r requirements.txt
+uvicorn app:app --reload
+```
+### Setup FrontEnd
 
-**Start Server Backend**
-    cd backend
-    uvicorn app:app --reload
-
-**Start Server Frontend**
-    cd frontend
-    npm run dev
-
- - Enjoy My doodle ai in your lapsss..
-
-
+```
+cd frontend
+npm install
+npm run dev
+```
