@@ -1,0 +1,33 @@
+.feedback-card {
+  margin-top: 20px;
+  background-color: #e0ffff;
+  border-radius: 20px;
+  padding: 20px;
+  display: inline-block;
+  max-width: 500px;
+  box-shadow: 3px 3px 10px rgba(0,0,0,0.2);
+}
+
+.feedback-card button {
+  margin: 10px;
+  padding: 10px 20px;
+  border-radius: 15px;
+  border: none;
+  background-color: #90ee90;
+  cursor: pointer;
+  font-weight: bold;
+  font-family: 'Comic Sans MS';
+  transition: 0.3s;
+}
+
+.feedback-card button:hover {
+  background-color: #32cd32;
+}
+
+.feedback-card button:last-child {
+  background-color: #ff7f7f;
+}
+
+.feedback-card button:last-child:hover {
+  background-color: #ff4040;
+}

@@ -24,8 +24,8 @@ export default function CanvasBoard({ onSave }) {
       <ReactSketchCanvas
         ref={canvasRef}
         style={{ border: "2px dashed black", borderRadius: "12px" }}
-        width="600px"
-        height="600px"
+        width="700px"
+        height="700px"
         strokeWidth={4}
         strokeColor="black"
         backgroundColor="white"

@@ -63,7 +63,7 @@ export default function App() {
   };
 
   const titleStyles = {
-    fontSize: "2.2rem",
+    fontSize: "3rem",
     color: "#222",
     textShadow: "2px 2px #0D98BA, -2px -2px #0D98BA",
     marginBottom: "5px",
@@ -209,7 +209,7 @@ export default function App() {
       
       <div style={appStyles}>
         <div style={containerStyles}>
-          <h1 style={titleStyles}>🎨 DOODLE ROASTER 🤖</h1>
+          <h1 style={titleStyles}> DOODLE ROASTER </h1>
           <p style={taglineStyles}>-powered by IOTA</p>
 
           {/* Canvas Section */}

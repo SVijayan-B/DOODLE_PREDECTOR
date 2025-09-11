@@ -15,17 +15,17 @@ PRAISE_COMPARISON = [
     "Even IIITS goats scribbling promts for C LAB don’t achieve this level of art. 🩺✍️",
     "Bro, you got a new talent to impress a .....",
     "Honestly, better than half the ‘Picassos’ I’ve seen in school notebooks. 🎨",
-    "Bro , your doodle’s so good, it’s brighter than guys craving for .....",
-    "BROOO... your not the person to study JEE MAINS, you should be teaching it. 📚",
+    "Bro , your doodle’s so good, it’s brighter than guys craving for Partner",
+    "BROOO... your not the person to study engineer, you should be doodle art for DLD course. 📚",
     "Bro, this is so good even DLD LAB report would retire gracefully. 🖌️"
     "Even IIITS mess menu can’t serve this much perfection. 🍛✨",
     "Bro, your skills are so sharp they could cut through FHVE assignments. 📘✂️",
     "This doodle’s cleaner than hostel rooms before room check. 🧹😂",
     "Bro, your art is more stable than DLD components in the LAb. ⚙️🤖",
     "Bro, your talent has more layers than OCW concepts. 🖥️📚",
-    "Bro, this art has more attendance than morning lectures. ⏰🎨",
+    "Bro, this art has more attendance than Sid's FHVE. ⏰🎨",
     "Honestly, this belongs in IIITS museum of ‘things better than our sports facilities’. 🖼️😂",
-    "This doodle just carried more weight than our entire lab report. 📑💪",
+    "This doodle just carried more weight than Sid's entire lab report. 📑💪",
 ]
 
 SELF_ROASTS = [
@@ -56,9 +56,9 @@ def generate_contextual_sarcasm(label: str, is_correct: bool, max_length=100) ->
 
     if is_correct:
         base_prompt = (
-            f"The user correctly drew a '{label}'. Generate 2-3 sentences: start by praising them, "
+            f"The user correctly drew a '{label}'. Generate 2 sentences: start by roasting them about their doodle, "
             f"then sarcastically compare them to  engineers, or terrible artists, "
-            f"to make the praise funny."
+            f"to make the praise yourself."
         )
     else:
         base_prompt = (
