@@ -39,12 +39,12 @@ This project was built as part of the **IOTA Club (AI/ML Club)** to show how AI 
 
 ## 📦 Installation & Setup
 
-### 1️⃣ Clone the Repo
+### 1️. Clone the Repo
 ```bash
 git clone https://github.com/SVijayan-B/DOODLE_PREDECTOR.git
 cd DOODLE_PREDECTOR
 ```
-### 2 Setup backend
+### 2. Setup backend
 ```
 cd backend
 python -m venv venv
@@ -54,7 +54,7 @@ venv\Scripts\activate   # (Windows)
 pip install -r requirements.txt
 uvicorn app:app --reload
 ```
-### Setup FrontEnd
+### 3. Setup FrontEnd
 
 ```
 cd frontend
@@ -62,5 +62,4 @@ npm install
 npm run dev
 ```
 
-
- - Now You Can Enjoy the Doodle Ai
+# ✨✨ Now You Can Enjoy the Doodle Ai ✨✨
