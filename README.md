@@ -1,7 +1,7 @@
 # 🎨 DOODLE_PREDECTOR 🤖✨
 
 Welcome to **Doodle AI**, a fun AI-powered doodle recognition app with a twist of **sarcasm and humor**!  
-This project was built as part of the **IOTA Club (AI/ML Club)** to show how AI can be **creative, entertaining, and a little bit savage**.  
+This project was built to show how AI can be **creative, entertaining, and a little bit savage**.  
 
 ---
 
